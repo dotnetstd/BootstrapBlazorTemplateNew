@@ -1,0 +1,2 @@
+# BootstrapBlazorTemplate
+Bootstrap Blazor Template
