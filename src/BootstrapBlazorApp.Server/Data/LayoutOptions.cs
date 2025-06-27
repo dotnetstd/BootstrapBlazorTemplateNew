@@ -16,7 +16,7 @@ namespace BootstrapBlazorApp.Server.Data
         public bool TabShowCloseButton { get; set; } = true;
         public bool ShowTabRightClickMenu { get; set; } = true;
         public bool ShowTabExtendButtons { get; set; }
-        public bool TabShowToolbar { get; set; } = true;
+        public bool TabShowToolbar { get; set; }
         public bool Accordion { get; set; } = true;
         public string? Theme { get; set; } = "color6";//可以默认""
         public int Pages { get; set; } = 20;

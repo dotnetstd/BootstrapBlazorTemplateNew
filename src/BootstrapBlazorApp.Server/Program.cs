@@ -30,7 +30,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseAntiforgery();
-
+app.UseBootstrapBlazor();
 app.MapStaticAssets();
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 
