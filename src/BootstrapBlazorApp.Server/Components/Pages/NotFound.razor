@@ -1,0 +1,25 @@
+﻿@page "/NotFound"
+
+<PageTitle>NotFound</PageTitle>
+
+<div>
+    <Alert Icon="fa-solid fa-triangle-exclamation" Color="Color.Info" ShowShadow="true">@Message</Alert>
+</div>
+
+@code {
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? Message { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var url = await localStore.GetValueAsync<string>("redirect_uri");
+        if (string.IsNullOrEmpty(url))
+            url = "http://www.jie6.cn";
+        var uri = new Uri(url);
+        url = url.Replace(uri.PathAndQuery, "");
+        await Task.Delay(3000);
+       // nav.NavigateTo(url);
+    }
+}

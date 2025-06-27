@@ -1,0 +1,133 @@
+﻿@page "/Online"
+@using System.Data
+@attribute [TabItemOption(Text = "在线用户", Icon = "fas fa-user-group text-success")]
+
+<PageTitle>Online</PageTitle>
+
+<h6><i class="fa-solid fa-people-group text-success"></i> 在线人数：@ConnectionService.Connections.Count</h6>
+
+<Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" IsBordered="true" IsStriped="true"></Table>
+
+@code {
+    [Inject]
+    [NotNull]
+    private IConnectionService? ConnectionService { get; set; }
+
+    private DynamicObjectContext? DataTableDynamicContext { get; set; }
+
+    private readonly DataTable _table = new();
+
+    private CancellationTokenSource? _cancellationTokenSource = null;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CreateTable();
+        BuildContext();
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        if (firstRender)
+        {
+            Task.Run(async () =>
+            {
+                await Task.Delay(500);
+                _cancellationTokenSource = new();
+                while (_cancellationTokenSource is { IsCancellationRequested: false })
+                {
+                    try
+                    {
+                        BuildContext();
+                        await InvokeAsync(StateHasChanged);
+                        await Task.Delay(10000, _cancellationTokenSource.Token);
+                    }
+                    catch { }
+                }
+            });
+        }
+    }
+
+    private void CreateTable()
+    {
+        _table.Columns.Add("连接时间", typeof(DateTimeOffset));
+        _table.Columns.Add("最后心跳时间", typeof(DateTimeOffset));
+        _table.Columns.Add("持续时间", typeof(TimeSpan));
+        _table.Columns.Add("Ip地址", typeof(string));
+        _table.Columns.Add("城市", typeof(string));
+        _table.Columns.Add("操作系统", typeof(string));
+        _table.Columns.Add("设备", typeof(string));
+        _table.Columns.Add("浏览器", typeof(string));
+        _table.Columns.Add("语言", typeof(string));
+        _table.Columns.Add("引擎", typeof(string));
+        _table.Columns.Add("请求Url", typeof(string));
+    }
+
+    private void BuildContext()
+    {
+        _table.Rows.Clear();
+        foreach (var item in ConnectionService.Connections)
+        {
+            _table.Rows.Add(
+                item.ConnectionTime,
+                item.LastBeatTime,
+                item.LastBeatTime - item.ConnectionTime,
+                item.ClientInfo?.Ip ?? "",
+                item.ClientInfo?.City ?? "",
+                item.ClientInfo?.OS ?? "",
+                item.ClientInfo?.Device.ToString() ?? "",
+                item.ClientInfo?.Browser ?? "",
+                item.ClientInfo?.Language ?? "",
+                item.ClientInfo?.Engine ?? "",
+                item.ClientInfo?.RequestUrl ?? ""
+            );
+        }
+        _table.AcceptChanges();
+
+        //table
+        DataTableDynamicContext = new DataTableDynamicContext(_table, (context, col) =>
+        {
+            if (col.GetFieldName() == "连接时间")
+            {
+                // col.FormatString = "yyyy/MM/dd HH:mm:ss";
+                // col.Width = 118;
+                col.Align = Alignment.Center;
+            }
+            else if (col.GetFieldName() == "最后心跳时间")
+            {
+                col.Align = Alignment.Center;
+            }
+            else if (col.GetFieldName() == "持续时间")
+            {
+                col.FormatString = @"dd\.hh\:mm\:ss";
+                col.Width = 54;
+                col.Align = Alignment.Center;
+            }
+            else if (col.GetFieldName() == "Ip地址")
+            {
+                col.Template = v => builder =>
+                {
+                    if (v is IDynamicObject val)
+                    {
+                        var ip = val.GetValue("Ip地址")?.ToString();
+                        if (!string.IsNullOrEmpty(ip))
+                        {
+                            builder.AddContent(0, new MarkupString($"<a href=\"https://ip.tool.chinaz.com/{ip}\" target=\"_blank\">{ip}</a>"));
+                        }
+                    }
+                };
+                col.Align = Alignment.Center;
+            }
+        });
+    }
+}

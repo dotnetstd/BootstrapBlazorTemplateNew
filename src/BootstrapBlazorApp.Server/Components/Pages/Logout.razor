@@ -1,0 +1,20 @@
+﻿@page "/Logout"
+
+<div class="text-center">
+    <h3>Logout...</h3>
+    <Spinner Color="Color.Success" Size="Size.Large"></Spinner>
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var uctks = await localStore.GetValueAsync<string?>("accesstoken");
+        if (uctks != null)
+        {
+            await localStore.DeleteAsync("accesstoken");
+           // ((CustomAuthStateProvider)AppUserState).LoginStateChanged();
+        }
+        var url = $"http://www.jie6.cn";
+       // nav.NavigateTo(url);
+    }
+}
