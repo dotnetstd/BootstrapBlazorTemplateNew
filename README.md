@@ -9,4 +9,4 @@ Bootstrap Blazor Template
 🌐👉️ <a href="https://bbt.azurewebsites.net" target="_blank">**https://bbt.azurewebsites.net**</a> 使用 Azure 免费的服务器，速度有点慢。😂
 
 ## 网站截图🖼️
-<img src="https://raw.githubusercontent.com/movieliang/BootstrapBlazorTemplate/refs/heads/main/Screenshot.png" />
+<img src="https://raw.githubusercontent.com/movieliang/BootstrapBlazorTemplate/refs/heads/main/Screenshot.jpg" />
