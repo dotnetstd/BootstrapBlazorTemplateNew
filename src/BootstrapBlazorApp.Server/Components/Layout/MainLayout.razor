@@ -96,12 +96,14 @@
             </GroupBox>
             
             <GroupBox Title="固定调整">
-                <div class="row">
-                    <div class="col-6 d-flex align-items-center">
-                        <Switch @bind-Value="@Options.ShowSide" OnColor="@Color.Success" OffColor="@Color.Secondary"></Switch>
-                    </div>
-                    <div class="col-6 text-right">
-                        <span>显示则边栏</span>
+                <div class="d-none d-xl-block">
+                    <div class="row">
+                        <div class="col-6 d-flex align-items-center">
+                            <Switch @bind-Value="@Options.ShowSide" OnColor="@Color.Success" OffColor="@Color.Secondary"></Switch>
+                        </div>
+                        <div class="col-6 text-right">
+                            <span>显示则边栏</span>
+                        </div>
                     </div>
                 </div>
                 @if (Options.ShowSide)
@@ -115,6 +117,14 @@
                         </div>
                     </div>
                 }
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                        <Switch @bind-Value="@Options.UseTabSet" OnColor="@Color.Success" OffColor="@Color.Primary"></Switch>
+                    </div>
+                    <div class="col-6 text-right">
+                        <span>@(Options.UseTabSet ? "多标签" : "单页显示")</span>
+                    </div>
+                </div>
                 @if (!Options.FixedTab || !Options.UseTabSet)
                 {
                     <div class="row">
@@ -126,14 +136,6 @@
                         </div>
                     </div>
                 }
-                <div class="row">
-                    <div class="col-6 d-flex align-items-center">
-                        <Switch @bind-Value="@Options.UseTabSet" OnColor="@Color.Success" OffColor="@Color.Primary"></Switch>
-                    </div>
-                    <div class="col-6 text-right">
-                        <span>@(Options.UseTabSet ? "多标签" : "单页显示")</span>
-                    </div>
-                </div>
                 @if (Options.UseTabSet)
                 {
                     <div class="row">
@@ -144,23 +146,23 @@
                             <span>固定Tab</span>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-6 d-flex align-items-center">
+                            <Switch @bind-Value="@Options.TabShowCloseButton" OnColor="@Color.Success" OffColor="@Color.Primary"></Switch>
+                        </div>
+                        <div class="col-6 text-right">
+                            <span>Tab关闭按钮</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 d-flex align-items-center">
+                            <Switch @bind-Value="@Options.TabShowToolbar" OnColor="@Color.Success" OffColor="@Color.Primary"></Switch>
+                        </div>
+                        <div class="col-6 text-right">
+                            <span>Tab右边按钮</span>
+                        </div>
+                    </div>
                 }
-                <div class="row">
-                    <div class="col-6 d-flex align-items-center">
-                        <Switch @bind-Value="@Options.TabShowCloseButton" OnColor="@Color.Success" OffColor="@Color.Primary"></Switch>
-                    </div>
-                    <div class="col-6 text-right">
-                        <span>Tab关闭按钮</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6 d-flex align-items-center">
-                        <Switch @bind-Value="@Options.TabShowToolbar" OnColor="@Color.Success" OffColor="@Color.Primary"></Switch>
-                    </div>
-                    <div class="col-6 text-right">
-                        <span>Tab右边按钮</span>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-6 d-flex align-items-center">
                         <Switch @bind-Value="@Options.ShowFooter" OnColor="@Color.Success" OffColor="@Color.Primary"></Switch>
@@ -180,14 +182,14 @@
                         </div>
                     </div>
                 }
-                <div class="row">
+                @* <div class="row">
                     <div class="col-6">
                         <Switch @bind-Value="@Options.ShowTabInHeader" OnColor="@Color.Success"></Switch>
                     </div>
                     <div class="col-6">
                         <span class="cell-label">@(Options.ShowTabInHeader ? "顶栏标签-🤔" : "正常标签")</span>
                     </div>
-                </div>
+                </div> *@
             </GroupBox>
 
             @if (Options.ShowSide)
