@@ -20,5 +20,12 @@ namespace BootstrapBlazorApp.Server.Data
         public bool Accordion { get; set; } = true;
         public string? Theme { get; set; } = "color6";//可以默认""
         public int Pages { get; set; } = 20;
+
+        public string? HeaderColorA { get; set; } = "#15b56b";
+        public string? HeaderColorB { get; set; } = "#409eff";
+
+        public int ColorAngle { get; set; } = 0;
+        public string? FooterColorA { get; set; } = "#15b56b";
+        public string? FooterColorB { get; set; } = "#409eff";
     }
 }

@@ -31,6 +31,11 @@
     <Routes @rendermode="new InteractiveServerRenderMode(false)" />
     <script Src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
     <script src="_framework/blazor.web.js"></script>
+    <script>
+        window.setCssProperty = (property,val) =>{
+            document.documentElement.style.setProperty(property, val);
+        };
+    </script>
 </body>
 
 </html>

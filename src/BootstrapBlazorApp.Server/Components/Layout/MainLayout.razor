@@ -13,7 +13,7 @@
         <Header>
             @if (Options.ShowTabInHeader == false)
             {
-                <div class="d-none d-lg-block">
+                <div class="d-none d-xl-block">
                     <a href="">
                         <span class="company-name">Bootstrap of Blazor</span>
                     </a>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
             </GroupBox>
-            
+
             <GroupBox Title="固定调整">
                 <div class="d-none d-xl-block">
                     <div class="row">
@@ -227,6 +227,25 @@
                 </GroupBox>
             }
 
+            <GroupBox Title="Colors">
+                <div class="row g-3 form-inline form-inline-end">
+                    <div class="col-4">
+                        <label class="form-label">Angle：</label>
+                    </div>
+                    <div class="col-8">
+                        <BootstrapInputNumber @bind-Value="@Options.ColorAngle" OnValueChanged="AngleChanged" Min="0" Max="360" Step="90" class="text-center" ShowButton="true" />
+                    </div>
+                </div>
+                <div class="row g-3 mt-1 form-inline form-inline-end">
+                    <div class="col-4">
+                        <label class="form-label">Color：</label>
+                    </div>
+                    <div class="col-8">
+                        <ColorPicker @bind-Value="@Options.HeaderColorA" OnValueChanged="OnColorChanged" />
+                    </div>
+                </div>
+            </GroupBox>
+
             @* <GroupBox Title="默认每页显示数据">
                 <div class="row g-3 form-inline form-inline-end">
                     <div class="col-4">
@@ -274,7 +293,11 @@
         Menus = GetIconSideMenuItems();
         var op = await localStore.GetValueAsync<LayoutOptions>("LayoutSetting");
         if (op is not null)
+        {
             Options = op;
+            await OnColorChanged(Options?.HeaderColorA);
+            await AngleChanged(Options?.ColorAngle ?? 0);
+        }
     }
     private async Task SaveSettingAsync()
     {
@@ -334,5 +357,19 @@
         Options.FullSide = v;
         StateHasChanged();
         return Task.CompletedTask;
+    }
+
+    private async Task OptionsChanged(string? property, string? value)
+    {
+        await js.InvokeVoidAsync("setCssProperty", property, value);
+    }
+    private async Task OnColorChanged(string? color)
+    {
+        await OptionsChanged("--bbt-header-color-a", color);
+    }
+    private async Task AngleChanged(int angle)
+    {
+        var angleString = angle + "deg";
+        await OptionsChanged("--bbt-color-angle", angleString);
     }
 }
