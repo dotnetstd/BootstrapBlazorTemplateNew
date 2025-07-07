@@ -29,10 +29,10 @@ Welcome to your new app.
 </script>
 <br />
 <br />
-<ColorPicker @bind-Value="@HandColor" IsSupportOpacity="true" OnValueChanged="OnColorChanged" />
+<ColorPicker @bind-Value="@HandColor" OnValueChanged="OnColorChanged" />
 
 @code {
-    private string? HandColor { get; set; } = "#a108e7";
+    private string? HandColor { get; set; } = "#4c11aa";
 
     private async Task OnColorChanged(string color)
     {

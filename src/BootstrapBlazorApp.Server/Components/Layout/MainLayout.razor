@@ -13,7 +13,7 @@
         <Header>
             @if (Options.ShowTabInHeader == false)
             {
-                <div class="d-none d-xl-block">
+                <div class="d-none d-lg-block">
                     <a href="">
                         <span class="company-name">Bootstrap of Blazor</span>
                     </a>
@@ -62,13 +62,13 @@
         <div class="layout-drawer-body">
             <div class="row">
                 <div class="col">
-                    <div class="btn btn-warning w-100" @onclick="DeleSettingAsync">恢复默认</div>
+                    <div class="btn btn-warning w-100" @onclick="DeleSettingAsync">Default</div>
                 </div>
                 <div class="col">
-                    <div class="btn btn-info w-100" @onclick="SaveSettingAsync">保存设置</div>
+                    <div class="btn btn-info w-100" @onclick="SaveSettingAsync">Save</div>
                 </div>
                 <div class="col">
-                    <div class="btn btn-secondary w-100" @onclick="@(e => IsOpen = false)">取消</div>
+                    <div class="btn btn-secondary w-100" @onclick="@(e => IsOpen = false)">Cancel</div>
                 </div>
             </div>
 
@@ -122,20 +122,9 @@
                         <Switch @bind-Value="@Options.UseTabSet" OnColor="@Color.Success" OffColor="@Color.Primary"></Switch>
                     </div>
                     <div class="col-6 text-right">
-                        <span>@(Options.UseTabSet ? "多标签" : "单页显示")</span>
+                        <span>多标签</span>
                     </div>
                 </div>
-                @if (!Options.FixedTab || !Options.UseTabSet)
-                {
-                    <div class="row">
-                        <div class="col-6 d-flex align-items-center">
-                            <Switch @bind-Value="@Options.FixedHeader" OnColor="@Color.Success" OffColor="@Color.Warning"></Switch>
-                        </div>
-                        <div class="col-6 text-right">
-                            <span>固定页头</span>
-                        </div>
-                    </div>
-                }
                 @if (Options.UseTabSet)
                 {
                     <div class="row">
@@ -160,6 +149,17 @@
                         </div>
                         <div class="col-6 text-right">
                             <span>Tab右边按钮</span>
+                        </div>
+                    </div>
+                }
+                @if (!Options.FixedTab || !Options.UseTabSet)
+                {
+                    <div class="row">
+                        <div class="col-6 d-flex align-items-center">
+                            <Switch @bind-Value="@Options.FixedHeader" OnColor="@Color.Success" OffColor="@Color.Warning"></Switch>
+                        </div>
+                        <div class="col-6 text-right">
+                            <span>固定页头</span>
                         </div>
                     </div>
                 }
@@ -322,7 +322,7 @@
     {
         var menus = new List<MenuItem>
         {
-            new() { Text = "GitHub", Icon = "fa-brands fa-github", Url = "https://github.com/movieliang/BootstrapBlazorTemplate" },
+            new() { Text = "GitHub", Icon = "fa-brands fa-github", Url = "https://github.com/movieliang/BootstrapBlazorTemplate", Target="_blank"},
             new() { Text = "Index", Icon = "fa-solid fa-fw fa-home text-success", Url = "/" , Match = NavLinkMatch.All},
             new() { Text = "Counter", Icon = "fa-solid fa-fw fa-check-square text-warning", Url = "/counter" },
             new() { Text = "Example", Icon = "fa-solid fa-fw fa-database text-primary",
@@ -343,8 +343,8 @@
             },
             new() { Text = "Favorite", Icon = "fa-solid fa-fw fa-pen-to-square text-danger",
                 Items = [
-                    new() { Text = "Bootstrap Blazor", Icon = "fa-brands fa-bootstrap text-info", Url = "https://www.blazor.zone/" },
-                    new() { Text = "Icons", Icon = "fa-solid fa-fw fa-flag text-success", Url = "https://fontawesome.com/icons" }
+                    new() { Text = "Bootstrap Blazor", Icon = "fa-brands fa-bootstrap text-info", Url = "https://www.blazor.zone/", Target="_blank" },
+                    new() { Text = "Icons", Icon = "fa-solid fa-fw fa-flag text-success", Url = "https://fontawesome.com/icons", Target="_blank"}
                 ]
             }
         };

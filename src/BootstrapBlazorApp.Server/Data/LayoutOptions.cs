@@ -24,7 +24,7 @@ namespace BootstrapBlazorApp.Server.Data
         public string? HeaderColorA { get; set; } = "#15b56b";
         public string? HeaderColorB { get; set; } = "#409eff";
 
-        public int ColorAngle { get; set; } = 0;
+        public int ColorAngle { get; set; } = 90;
         public string? FooterColorA { get; set; } = "#15b56b";
         public string? FooterColorB { get; set; } = "#409eff";
     }
