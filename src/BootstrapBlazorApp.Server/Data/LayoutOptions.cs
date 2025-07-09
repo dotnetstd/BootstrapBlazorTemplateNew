@@ -6,7 +6,7 @@ namespace BootstrapBlazorApp.Server.Data
     {
         public bool FixedHeader { get; set; } = true;
         public bool ShowSide { get; set; } = true;
-        public bool FullSide { get; set; }
+        public bool FullSide { get; set; }=true;
         public bool ShowFooter { get; set; } = true;
         public bool FixedFooter { get; set; } = true;
         public bool UseTabSet { get; set; } = true;
@@ -18,14 +18,12 @@ namespace BootstrapBlazorApp.Server.Data
         public bool ShowTabExtendButtons { get; set; }
         public bool TabShowToolbar { get; set; }
         public bool Accordion { get; set; } = true;
-        public string? Theme { get; set; } = "color6";//可以默认""
+        public string? Theme { get; set; } = "color1";//可以默认""
         public int Pages { get; set; } = 20;
 
-        public string? HeaderColorA { get; set; } = "#15b56b";
-        public string? HeaderColorB { get; set; } = "#409eff";
-
-        public int ColorAngle { get; set; } = 90;
-        public string? FooterColorA { get; set; } = "#15b56b";
-        public string? FooterColorB { get; set; } = "#409eff";
+        public string? LayoutColorA { get; set; } = "#15b56b";
+        public string? LayoutColorB { get; set; } = "#409eff";
+        public string? LayoutBannerColor { get; set; } = "#0463c3";
+        public string? LayoutSideColor { get; set; } = "#06407a";
     }
 }

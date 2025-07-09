@@ -95,7 +95,42 @@
                 </div>
             </GroupBox>
 
-            <GroupBox Title="固定调整">
+            <GroupBox Title="Colors">
+                <div class="row g-1 form-inline form-inline-end">
+                    <div class="col-5">
+                        <label class="form-label">Color A：</label>
+                    </div>
+                    <div class="col-7">
+                        <ColorPicker @bind-Value="@Options.LayoutColorA" OnValueChanged="@((v) => OptionsChanged("--bbt-layout-color-a", v))" />
+                    </div>
+                </div>
+                <div class="row g-1 mt-1 form-inline form-inline-end">
+                    <div class="col-5">
+                        <label class="form-label">Color B：</label>
+                    </div>
+                    <div class="col-7">
+                        <ColorPicker @bind-Value="@Options.LayoutColorB" OnValueChanged="@((v) => OptionsChanged("--bbt-layout-color-b", v))" />
+                    </div>
+                </div>
+                <div class="row g-1 mt-1 form-inline form-inline-end">
+                    <div class="col-5">
+                        <label class="form-label">Banner：</label>
+                    </div>
+                    <div class="col-7">
+                        <ColorPicker @bind-Value="@Options.LayoutBannerColor" OnValueChanged="@((v) => OptionsChanged("--bbt-layout-banner-color", v))" />
+                    </div>
+                </div>
+                <div class="row g-1 mt-1 form-inline form-inline-end">
+                    <div class="col-5">
+                        <label class="form-label">Side：</label>
+                    </div>
+                    <div class="col-7">
+                        <ColorPicker @bind-Value="@Options.LayoutSideColor" OnValueChanged="@((v) => OptionsChanged("--bbt-layout-side-color", v))" />
+                    </div>
+                </div>
+            </GroupBox>
+
+            <GroupBox Title="页面设置">
                 <div class="d-none d-xl-block">
                     <div class="row">
                         <div class="col-6 d-flex align-items-center">
@@ -227,25 +262,6 @@
                 </GroupBox>
             }
 
-            <GroupBox Title="Colors">
-                <div class="row g-3 form-inline form-inline-end">
-                    <div class="col-4">
-                        <label class="form-label">Angle：</label>
-                    </div>
-                    <div class="col-8">
-                        <BootstrapInputNumber @bind-Value="@Options.ColorAngle" OnValueChanged="AngleChanged" Min="0" Max="360" Step="90" class="text-center" ShowButton="true" />
-                    </div>
-                </div>
-                <div class="row g-3 mt-1 form-inline form-inline-end">
-                    <div class="col-4">
-                        <label class="form-label">Color：</label>
-                    </div>
-                    <div class="col-8">
-                        <ColorPicker @bind-Value="@Options.HeaderColorA" OnValueChanged="OnColorChanged" />
-                    </div>
-                </div>
-            </GroupBox>
-
             @* <GroupBox Title="默认每页显示数据">
                 <div class="row g-3 form-inline form-inline-end">
                     <div class="col-4">
@@ -295,8 +311,10 @@
         if (op is not null)
         {
             Options = op;
-            await OnColorChanged(Options?.HeaderColorA);
-            await AngleChanged(Options?.ColorAngle ?? 0);
+            await OptionsChanged("--bbt-layout-color-a", op.LayoutColorA);
+            await OptionsChanged("--bbt-layout-color-b", op.LayoutColorB);
+            await OptionsChanged("--bbt-layout-banner-color", op.LayoutBannerColor);
+            await OptionsChanged("--bbt-layout-side-color", op.LayoutSideColor);
         }
     }
     private async Task SaveSettingAsync()
@@ -362,14 +380,5 @@
     private async Task OptionsChanged(string? property, string? value)
     {
         await js.InvokeVoidAsync("setCssProperty", property, value);
-    }
-    private async Task OnColorChanged(string? color)
-    {
-        await OptionsChanged("--bbt-header-color-a", color);
-    }
-    private async Task AngleChanged(int angle)
-    {
-        var angleString = angle + "deg";
-        await OptionsChanged("--bbt-color-angle", angleString);
     }
 }

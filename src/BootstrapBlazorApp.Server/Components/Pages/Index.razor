@@ -21,7 +21,7 @@ Welcome to your new app.
       var newColor = '#' + Math.floor(Math.random()*16777215).toString(16);
 
       // 修改CSS变量
-      document.documentElement.style.setProperty('--bbt-header-color-a', newColor);
+      document.documentElement.style.setProperty('--bbt-layout-color-a', newColor);
     }
 
     // 为按钮添加点击事件监听器
@@ -37,7 +37,7 @@ Welcome to your new app.
     private async Task OnColorChanged(string color)
     {
         HandColor = color;
-        await js.InvokeVoidAsync("setCssProperty", "--bbt-header-color-a", color);
+        await js.InvokeVoidAsync("setCssProperty", "--bbt-layout-color-a", color);
     }
 
 }
